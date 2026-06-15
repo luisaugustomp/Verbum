@@ -7,37 +7,41 @@
   <title>Verbum — Assistente Teológico Reformado</title>
   <meta name="description"
     content="Assistente teológico reformado com inteligência artificial, fundamentado nas Escrituras e na tradição reformada histórica.">
-  <meta name="theme-color" content="#F5F5F7">
+  <meta name="theme-color" content="#0B0E18">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <!-- Fontes: Fraunces (display/serif) + Outfit (interface) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Nunito:wght@200..1000&family=Quicksand:wght@300..700&display=swap"
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Outfit:wght@300..800&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Bibliotecas -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bcryptjs@2.4.3/dist/bcrypt.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
   <!-- ====================================================
-       LOGIN SCREEN
+       TELA DE LOGIN
        ==================================================== -->
   <div id="login-screen">
     <div id="login-sphere-anchor">
-      <!-- Sphere will be placed here on login -->
+      <!-- A esfera é movida para aqui ao iniciar -->
     </div>
     <div class="login-brand">
       <h1 id="login-title">Verbum</h1>
       <p>Assistente Teológico Reformado</p>
     </div>
-    <div class="login-card">
+    <div class="login-card glass">
       <div class="login-form">
         <input type="text" id="auth-name" placeholder="Nome" autocomplete="username" spellcheck="false">
         <input type="password" id="auth-password" placeholder="Senha" autocomplete="current-password">
@@ -46,17 +50,13 @@
         <button class="btn-secondary" id="btn-register" disabled>Criar Conta</button>
       </div>
     </div>
-    <div id="config-warning" style="display:none">
-      <p>⚠️ Configure as credenciais do Supabase no topo do bloco &lt;script&gt; do arquivo index.html antes de usar.
-      </p>
-    </div>
   </div>
 
   <!-- ====================================================
-       APP SCREEN
+       TELA PRINCIPAL DO APLICATIVO
        ==================================================== -->
   <div id="app-screen">
-    <!-- Sidebar Overlay -->
+
     <div id="sidebar-overlay"></div>
 
     <!-- Sidebar -->
@@ -67,22 +67,26 @@
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
+
       <button id="new-conv-btn">
-        <i class="fa-solid fa-plus" style="margin-right: 8px;"></i>
+        <i class="fa-solid fa-feather-pointed"></i>
         Nova Conversa
       </button>
+
       <div id="conversations-list"></div>
+
       <div class="sidebar-footer">
         <button id="logout-btn">
-          <i class="fa-solid fa-arrow-right-from-bracket" style="margin-right: 8px;"></i>
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
           Sair
         </button>
       </div>
     </div>
 
-    <!-- Main Content -->
+    <!-- Conteúdo Principal -->
     <div id="main-content" class="empty-chat">
-      <!-- Header -->
+
+      <!-- Cabeçalho -->
       <header id="app-header">
         <div class="header-left">
           <button class="icon-btn" id="menu-btn" aria-label="Abrir menu">
@@ -94,37 +98,27 @@
           <p>Assistente Teológico</p>
         </div>
         <div class="header-right">
-          <button class="icon-btn" id="sync-btn" aria-label="Sincronizar base de conhecimento"
-            title="Sincronizar Base de Conhecimento">
-            <i class="fa-solid fa-rotate"></i>
-          </button>
+          <!-- Espaço reservado -->
         </div>
       </header>
 
-      <!-- Sync Progress Bar -->
-      <div id="sync-bar">
-        <div class="sync-progress-track">
-          <div class="sync-progress-fill" id="sync-fill"></div>
-        </div>
-        <span id="sync-status">Preparando...</span>
-      </div>
-
-      <!-- Sphere -->
+      <!-- Esfera -->
       <div id="app-sphere-anchor">
-        <!-- Sphere will be moved here after login -->
+        <!-- A esfera é movida para aqui após o login -->
       </div>
 
       <!-- Chat -->
       <div id="chat-section">
         <div id="chat-messages">
           <div class="welcome-hint" id="welcome-hint">
-            <strong>Sola Scriptura</strong><br>
-            Faça uma pergunta sobre qualquer assunto que desejar.
+            <strong>Sola Scriptura</strong>
+            A Palavra é a luz para o nosso caminho. Faça uma pergunta teológica fundamentada nas Escrituras e na
+            tradição reformada.
           </div>
         </div>
       </div>
 
-      <!-- Input -->
+      <!-- Campo de Entrada -->
       <div id="input-section">
         <div class="input-wrapper">
           <textarea id="user-input" rows="1" placeholder="Faça uma pergunta teológica..."></textarea>
@@ -136,16 +130,11 @@
     </div>
   </div>
 
-  <!-- ====================================================
-       PORTABLE SPHERE CONTAINER (moves between screens)
-       ==================================================== -->
+  <!-- Contêiner portátil da esfera -->
   <div id="sphere-wrap">
     <canvas id="sphere-canvas"></canvas>
   </div>
 
-  <!-- ====================================================
-       MAIN SCRIPT
-       ==================================================== -->
   <script src="script.js"></script>
 </body>
 
