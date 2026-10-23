@@ -4,9 +4,9 @@
   "type": "module",
   "scripts": {
     "build": "node build.mjs",
+    "dev": "node dev.mjs",
     "novo": "node novo.mjs",
-    "serve": "python3 -m http.server 8765",
-    "dev": "node build.mjs && python3 -m http.server 8765"
+    "serve": "node dev.mjs"
   },
   "dependencies": {
     "marked": "^18.1.1",

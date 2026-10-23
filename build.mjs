@@ -13,6 +13,7 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const SRC = path.join(ROOT, 'articles');
+const OUT = path.join(ROOT, 'public');
 
 const SITE = {
     name: 'Verbum',
@@ -226,14 +227,21 @@ ${items}
 
 // ---------- escrita ----------
 
-fs.writeFileSync(path.join(ROOT, 'index.html'), homePage());
-posts.forEach((p, i) => {
-    fs.mkdirSync(path.join(ROOT, p.slug), { recursive: true });
-    fs.writeFileSync(path.join(ROOT, p.slug, 'index.html'), postPage(p, i));
-});
-if (SITE.url) fs.writeFileSync(path.join(ROOT, 'feed.xml'), feed());
+fs.rmSync(OUT, { recursive: true, force: true });
+fs.mkdirSync(OUT, { recursive: true });
 
-console.log(`OK: ${posts.length} artigos gerados na raiz do repositório.`);
+fs.copyFileSync(path.join(ROOT, 'style.css'), path.join(OUT, 'style.css'));
+fs.copyFileSync(path.join(ROOT, 'script.js'), path.join(OUT, 'script.js'));
+fs.cpSync(path.join(ROOT, 'images'), path.join(OUT, 'images'), { recursive: true });
+
+fs.writeFileSync(path.join(OUT, 'index.html'), homePage());
+posts.forEach((p, i) => {
+    fs.mkdirSync(path.join(OUT, p.slug), { recursive: true });
+    fs.writeFileSync(path.join(OUT, p.slug, 'index.html'), postPage(p, i));
+});
+if (SITE.url) fs.writeFileSync(path.join(OUT, 'feed.xml'), feed());
+
+console.log(`OK: ${posts.length} artigos gerados em public/`);
 posts.forEach((p) => console.log(`  /${p.slug}/  (${p.date}, ${p.minutes} min)`));
 if (!SITE.url) {
     console.log('\nAviso: SITE_URL não definido. O site funciona, mas sem pré-visualização de link ao compartilhar.');

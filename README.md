@@ -6,39 +6,40 @@ Blog pessoal de ensaios e reflexões cristãs por Luis Augusto Matos Pontes.
 
 ---
 
-## Estrutura do Projeto
+## Estrutura Limpa do Repositório
 
-- `articles/` — Textos dos artigos em Markdown com frontmatter.
-- `images/` — Imagens e ilustrações autorais em aquarela.
-- `style.css` — Estilos do blog (design editorial com suporte a tema claro e escuro).
-- `script.js` — Alternador de tema e compartilhamento nativo.
-- `build.mjs` — Gerador estático que compila os artigos em HTML para o GitHub Pages.
-- `novo.mjs` — Script auxiliar para criar a estrutura de um novo artigo.
+Nenhum arquivo HTML compilado é versionado no repositório. O projeto é composto apenas pelos arquivos-fonte:
+
+- `articles/` — Textos dos artigos em Markdown (`.md`) com frontmatter no topo.
+- `images/` — Ilustrações em aquarela correspondentes aos artigos.
+- `style.css` — Folha de estilos (design editorial com tema claro e escuro).
+- `script.js` — Script de alternância de tema e compartilhamento nativo.
+- `build.mjs` — Compilador estático (gera a pasta temporária `public/`).
+- `dev.mjs` — Servidor de desenvolvimento com LiveReload e auto-rebuild.
+- `.github/workflows/deploy.yml` — Ação do GitHub que publica o site sozinho no ar ao dar `git push`.
 
 ---
 
 ## Como Escrever e Publicar
 
-### 1. Criar um novo artigo
-```bash
-npm run novo -- meu-artigo "Título do Artigo"
-```
-Isso criará o arquivo `articles/meu-artigo.md` com os metadados prontos.
+### 1. No seu computador (com atualização instantânea na tela)
+Para escrever vendo as alterações em tempo real no navegador:
 
-### 2. Adicionar imagens
-Coloque a imagem de capa em `images/meu-artigo-capa.jpg` e as ilustrações do texto em `images/`.
-
-### 3. Compilar o blog
 ```bash
-npm run build
-```
-Ou definindo a URL pública para habilitar a pré-visualização em redes sociais e WhatsApp:
-```bash
-SITE_URL="https://luisaugustomp.github.io/Verbum" npm run build
+npm run dev
 ```
 
-### 4. Testar localmente
+Abra `http://localhost:8765`. 
+Agora basta abrir qualquer arquivo dentro de `articles/` (ou criar um novo com `npm run novo -- meu-slug "Meu Título"`). 
+**Assim que você salvar o Markdown (Cmd+S / Ctrl+S), a página atualiza sozinha na mesma hora.**
+
+### 2. Para publicar no GitHub Pages
+Você **não precisa compilar nada** na sua máquina antes de subir. Basta fazer o commit do Markdown e das imagens:
+
 ```bash
-npm run serve
+git add articles/ images/
+git commit -m "Novo artigo: título do artigo"
+git push
 ```
-Abra `http://localhost:8765` no navegador.
+
+O GitHub Actions roda automaticamente na nuvem, compila o site e publica no GitHub Pages com todas as tags de prévia para WhatsApp e redes sociais.
