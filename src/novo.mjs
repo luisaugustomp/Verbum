@@ -15,7 +15,8 @@ if (!/^[a-z0-9-]+$/.test(slug)) {
     process.exit(1);
 }
 
-const file = path.join(path.dirname(fileURLToPath(import.meta.url)), 'articles', `${slug}.md`);
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const file = path.join(ROOT, 'articles', `${slug}.md`);
 if (fs.existsSync(file)) {
     console.log(`Já existe: articles/${slug}.md`);
     process.exit(1);

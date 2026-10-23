@@ -1,45 +1,45 @@
-# Verbum
+# VERBUM
+### Reflexões sobre a Cultura e sobre a Bíblia
 
-Reflexões sobre a Cultura e sobre a Bíblia.
+> *"No princípio era o Verbo, e o Verbo estava com Deus, e o Verbo era Deus."*  
+> — João 1:1
 
-Blog pessoal de ensaios e reflexões cristãs por Luis Augusto Matos Pontes.
-
----
-
-## Estrutura Limpa do Repositório
-
-Nenhum arquivo HTML compilado é versionado no repositório. O projeto é composto apenas pelos arquivos-fonte:
-
-- `articles/` — Textos dos artigos em Markdown (`.md`) com frontmatter no topo.
-- `images/` — Ilustrações em aquarela correspondentes aos artigos.
-- `style.css` — Folha de estilos (design editorial com tema claro e escuro).
-- `script.js` — Script de alternância de tema e compartilhamento nativo.
-- `build.mjs` — Compilador estático (gera a pasta temporária `public/`).
-- `dev.mjs` — Servidor de desenvolvimento com LiveReload e auto-rebuild.
-- `.github/workflows/deploy.yml` — Ação do GitHub que publica o site sozinho no ar ao dar `git push`.
+O **Verbum** é um espaço de ensaios e reflexões que busca examinar a cultura contemporânea, a sociedade e a psicologia humana sob a luz do Evangelho de Jesus Cristo.
 
 ---
 
-## Como Escrever e Publicar
+## Proposta Editorial
 
-### 1. No seu computador (com atualização instantânea na tela)
-Para escrever vendo as alterações em tempo real no navegador:
+Vivemos em uma época saturada de ruído, polarização superficial e respostas prontas. O **Verbum** nasce como um convite à pausa e à sobriedade espiritual. 
 
-```bash
-npm run dev
-```
+Nossos ensaios partem de uma convicção bíblica inegociável: a nossa única e suficiente identidade é Cristo. Por Ele vivemos, por Ele morremos e somente a Ele devemos a nossa lealdade e adoração. Nenhum projeto político, ideologia terrena ou tendência cultural é digno do que o Filho de Deus comprou com o próprio sangue.
 
-Abra `http://localhost:8765`. 
-Agora basta abrir qualquer arquivo dentro de `articles/` (ou criar um novo com `npm run novo -- meu-slug "Meu Título"`). 
-**Assim que você salvar o Markdown (Cmd+S / Ctrl+S), a página atualiza sozinha na mesma hora.**
+Os textos buscam dialogar com honestidade sobre:
+- **A fé bíblica e a psicologia das massas**: como o medo, o sentimento de pertença e os discursos fáceis sequestram a mente humana e desviam até mesmo o povo de Deus da simplicidade do Evangelho.
+- **Cultura e sociedade**: a tensão entre a vida cristã autêntica e as cobranças de status, aparência e maturidade da era moderna.
+- **A suficiência das Escrituras**: o reencontro com a graça, o desarmamento do cinismo e o chamado à fidelidade prática no cotidiano.
 
-### 2. Para publicar no GitHub Pages
-Você **não precisa compilar nada** na sua máquina antes de subir. Basta fazer o commit do Markdown e das imagens:
+---
 
-```bash
-git add articles/ images/
-git commit -m "Novo artigo: título do artigo"
-git push
-```
+## Arte e Estética
 
-O GitHub Actions roda automaticamente na nuvem, compila o site e publica no GitHub Pages com todas as tags de prévia para WhatsApp e redes sociais.
+Acreditamos que a beleza visual e a profundidade teológica devem caminhar juntas. Cada reflexão é acompanhada de ilustrações autorais em aquarela e nanquim, compostas para dialogar diretamente com o espírito e a mensagem de cada ensaio.
+
+---
+
+## Onde Ler
+
+Acesse as publicações e acompanhe as reflexões online:  
+👉 **[luisaugustomp.github.io/Verbum](https://luisaugustomp.github.io/Verbum)**
+
+### Ensaios em Destaque
+
+- **Uma só bandeira: Cristo e mais ninguém**  
+  *Sobre dependência, o clientelismo do favor, a psicologia das massas na política e a lealdade que só pertence a Deus.*
+- **Maturidade não tem cara de adulto**  
+  *A maturidade cristã passa pelo caráter e pelo cuidado com o outro, não pela estética da vida adulta ou símbolos de status.*
+
+---
+
+**Autor:** Luis Augusto Matos Pontes  
+*Soli Deo Gloria.*

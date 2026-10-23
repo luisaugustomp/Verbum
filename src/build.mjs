@@ -11,7 +11,7 @@ import crypto from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const ROOT = path.dirname(fileURLToPath(import.meta.url));
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SRC = path.join(ROOT, 'articles');
 const OUT = path.join(ROOT, 'public');
 
@@ -55,7 +55,7 @@ const abs = (p) => (SITE.url ? `${SITE.url}/${p}` : '');
 // Versão dos arquivos de estilo e script: muda sempre que eles mudam,
 // então o navegador nunca mistura página nova com CSS/JS antigo em cache.
 const assetVersion = (file) =>
-    crypto.createHash('md5').update(fs.readFileSync(path.join(ROOT, file))).digest('hex').slice(0, 8);
+    crypto.createHash('md5').update(fs.readFileSync(path.join(ROOT, 'src', file))).digest('hex').slice(0, 8);
 const CSS_V = assetVersion('style.css');
 const JS_V = assetVersion('script.js');
 
@@ -230,8 +230,8 @@ ${items}
 fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(OUT, { recursive: true });
 
-fs.copyFileSync(path.join(ROOT, 'style.css'), path.join(OUT, 'style.css'));
-fs.copyFileSync(path.join(ROOT, 'script.js'), path.join(OUT, 'script.js'));
+fs.copyFileSync(path.join(ROOT, 'src', 'style.css'), path.join(OUT, 'style.css'));
+fs.copyFileSync(path.join(ROOT, 'src', 'script.js'), path.join(OUT, 'script.js'));
 fs.cpSync(path.join(ROOT, 'images'), path.join(OUT, 'images'), { recursive: true });
 
 fs.writeFileSync(path.join(OUT, 'index.html'), homePage());

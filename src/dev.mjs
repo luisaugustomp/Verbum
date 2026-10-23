@@ -9,7 +9,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawn } from 'node:child_process';
 
-const ROOT = path.dirname(fileURLToPath(import.meta.url));
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const PUBLIC = path.join(ROOT, 'public');
 const PORT = 8765;
 
@@ -17,7 +17,7 @@ const clients = new Set();
 
 function build() {
     return new Promise((resolve, reject) => {
-        const proc = spawn('node', ['build.mjs'], { cwd: ROOT, stdio: 'inherit' });
+        const proc = spawn('node', ['src/build.mjs'], { cwd: ROOT, stdio: 'inherit' });
         proc.on('close', (code) => {
             if (code === 0) resolve();
             else reject(new Error(`Build falhou com código ${code}`));
@@ -130,8 +130,7 @@ server.listen(PORT, '0.0.0.0', () => {
 const watchPaths = [
     path.join(ROOT, 'articles'),
     path.join(ROOT, 'images'),
-    path.join(ROOT, 'style.css'),
-    path.join(ROOT, 'script.js'),
+    path.join(ROOT, 'src'),
 ];
 
 for (const p of watchPaths) {
