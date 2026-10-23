@@ -1,141 +1,73 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Verbum — Assistente Teológico Reformado</title>
-  <meta name="description"
-    content="Assistente teológico reformado com inteligência artificial, fundamentado nas Escrituras e na tradição reformada histórica.">
-  <meta name="theme-color" content="#0B0E18">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-  <!-- Fontes: Fraunces (display/serif) + Outfit (interface) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Outfit:wght@300..800&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <!-- Bibliotecas -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bcryptjs@2.4.3/dist/bcrypt.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)">
+    <title>Verbum - Cultura e Bíblia</title>
+    <meta name="description" content="Um espaço para pensar sobre cultura, espiritualidade e as tensões da vida cristã moderna.">
+    <link rel="canonical" href="https://luisaugustomp.github.io/Verbum/">
+    <meta property="og:site_name" content="Verbum">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Verbum">
+    <meta property="og:description" content="Um espaço para pensar sobre cultura, espiritualidade e as tensões da vida cristã moderna.">
+    <meta property="og:url" content="https://luisaugustomp.github.io/Verbum/">
+    <meta name="twitter:card" content="summary">
+    <link rel="alternate" type="application/rss+xml" title="Verbum" href="https://luisaugustomp.github.io/Verbum/feed.xml">
+    <script>
+try {
+    var t = localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', t);
+} catch (e) { document.documentElement.setAttribute('data-theme', 'light'); }
+</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=f89d281b">
 </head>
-
 <body>
-
-  <!-- ====================================================
-       TELA DE LOGIN
-       ==================================================== -->
-  <div id="login-screen">
-    <div id="login-sphere-anchor">
-      <!-- A esfera é movida para aqui ao iniciar -->
-    </div>
-    <div class="login-brand">
-      <h1 id="login-title">Verbum</h1>
-      <p>Assistente Teológico Reformado</p>
-    </div>
-    <div class="login-card glass">
-      <div class="login-form">
-        <input type="text" id="auth-name" placeholder="Nome" autocomplete="username" spellcheck="false">
-        <input type="password" id="auth-password" placeholder="Senha" autocomplete="current-password">
-        <div id="auth-error"></div>
-        <button class="btn-primary" id="btn-login" disabled>Entrar</button>
-        <button class="btn-secondary" id="btn-register" disabled>Criar Conta</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ====================================================
-       TELA PRINCIPAL DO APLICATIVO
-       ==================================================== -->
-  <div id="app-screen">
-
-    <div id="sidebar-overlay"></div>
-
-    <!-- Sidebar -->
-    <div id="sidebar">
-      <div class="sidebar-header">
-        <h2>Conversas</h2>
-        <button class="icon-btn" id="close-sidebar-btn" aria-label="Fechar menu">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
-
-      <button id="new-conv-btn">
-        <i class="fa-solid fa-feather-pointed"></i>
-        Nova Conversa
-      </button>
-
-      <div id="conversations-list"></div>
-
-      <div class="sidebar-footer">
-        <button id="logout-btn">
-          <i class="fa-solid fa-arrow-right-from-bracket"></i>
-          Sair
-        </button>
-      </div>
-    </div>
-
-    <!-- Conteúdo Principal -->
-    <div id="main-content" class="empty-chat">
-
-      <!-- Cabeçalho -->
-      <header id="app-header">
-        <div class="header-left">
-          <button class="icon-btn" id="menu-btn" aria-label="Abrir menu">
-            <i class="fa-solid fa-bars"></i>
-          </button>
+    <header class="top-nav">
+        <div class="nav-container">
+            <a href="./" class="logo">VERBUM</a>
+            <button id="theme-toggle" class="theme-btn" aria-label="Alternar tema claro e escuro">
+<svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+<svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
         </div>
-        <div class="header-center">
-          <h1 id="app-title">Verbum</h1>
-          <p>Assistente Teológico</p>
+    </header>
+    <main class="main-container home">
+        <h1 class="home-title">Artigos</h1>
+        <ul class="post-list">
+        <li class="post-card">
+            <a href="bandeira/">
+                <img src="images/bandeira-capa.jpg" alt="Rua de terra numa comunidade de periferia no interior, pintura em aquarela" loading="lazy">
+                <div class="post-card-text">
+                    <span class="article-meta">Sociedade · 22 de outubro de 2026 · 14 min</span>
+                    <h2>Uma só bandeira: Cristo e mais ninguém</h2>
+                    <p>O cristão tem uma única identidade, e ela é Cristo. Sobre dependência, psicologia das massas e a lealdade que só pertence a Deus.</p>
+                </div>
+            </a>
+        </li>
+        <li class="post-card">
+            <a href="maturidade/">
+                <img src="images/maturidade-capa.jpg" alt="Dois homens conversando na calçada, pintura em aquarela" loading="lazy">
+                <div class="post-card-text">
+                    <span class="article-meta">Opinião · 9 de outubro de 2026 · 8 min</span>
+                    <h2>Maturidade não tem cara de adulto</h2>
+                    <p>A maturidade cristã passa pelo caráter e pelo cuidado com o outro, não por roupas ou relógios. Reflexões com base bíblica e cultura pop.</p>
+                </div>
+            </a>
+        </li>
+        </ul>
+    </main>
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-logo">VERBUM</div>
+            <p class="footer-desc">Reflexões sobre a Cultura e sobre a Bíblia.</p>
+            <p class="footer-copy">&copy; 2026 Luis Augusto Matos Pontes.</p>
         </div>
-        <div class="header-right">
-          <!-- Espaço reservado -->
-        </div>
-      </header>
-
-      <!-- Esfera -->
-      <div id="app-sphere-anchor">
-        <!-- A esfera é movida para aqui após o login -->
-      </div>
-
-      <!-- Chat -->
-      <div id="chat-section">
-        <div id="chat-messages">
-          <div class="welcome-hint" id="welcome-hint">
-            <strong>Sola Scriptura</strong>
-            A Palavra é a luz para o nosso caminho. Faça uma pergunta teológica fundamentada nas Escrituras e na
-            tradição reformada.
-          </div>
-        </div>
-      </div>
-
-      <!-- Campo de Entrada -->
-      <div id="input-section">
-        <div class="input-wrapper">
-          <textarea id="user-input" rows="1" placeholder="Faça uma pergunta teológica..."></textarea>
-          <button id="send-btn" aria-label="Enviar mensagem">
-            <i class="fa-solid fa-arrow-up"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Contêiner portátil da esfera -->
-  <div id="sphere-wrap">
-    <canvas id="sphere-canvas"></canvas>
-  </div>
-
-  <script src="script.js"></script>
+    </footer>
+    <script src="script.js?v=465c8e97"></script>
 </body>
-
 </html>
