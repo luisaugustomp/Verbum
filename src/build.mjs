@@ -79,7 +79,7 @@ const posts = fs
 
 const themeInit = `<script>
 try {
-    var t = localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    var t = localStorage.getItem('theme') || 'light';
     document.documentElement.setAttribute('data-theme', t);
 } catch (e) { document.documentElement.setAttribute('data-theme', 'light'); }
 </script>`;
@@ -109,23 +109,26 @@ function layout({ title, description, root, canonical, ogImage, ogType, body }) 
     ${ogImage ? `<meta property="og:image" content="${esc(ogImage)}">\n    <meta name="twitter:card" content="summary_large_image">` : '<meta name="twitter:card" content="summary">'}
     ${SITE.url ? `<link rel="alternate" type="application/rss+xml" title="${SITE.name}" href="${SITE.url}/feed.xml">` : ''}
     ${themeInit}
+    <link rel="icon" type="image/png" sizes="32x32" href="${root}images/icone-32.png">
+    <link rel="apple-touch-icon" href="${root}images/icone-180.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="${root}style.css?v=${CSS_V}">
 </head>
 <body>
     <header class="top-nav">
         <div class="nav-container">
-            <a href="${root || './'}" class="logo">VERBUM</a>
+            <a href="${root || './'}" class="logo" aria-label="Verbum, página inicial"><img src="${root}images/verbum-logo.jpg" alt="Verbum" width="900" height="404"></a>
             <button id="theme-toggle" class="theme-btn" aria-label="Alternar tema claro e escuro">${sunMoon}</button>
         </div>
     </header>
     ${body}
     <footer class="site-footer">
         <div class="footer-content">
-            <div class="footer-logo">VERBUM</div>
+            <a href="${root || './'}" class="footer-logo" aria-label="Verbum, página inicial"><img src="${root}images/verbum-logo.jpg" alt="Verbum" width="900" height="404" loading="lazy"></a>
             <p class="footer-desc">${SITE.tagline}</p>
+            <p class="footer-motto">Soli Deo Gloria</p>
             <p class="footer-copy">&copy; ${new Date().getFullYear()} ${SITE.author}.</p>
         </div>
     </footer>
@@ -180,13 +183,23 @@ function homePage() {
                     <span class="article-meta">${esc(p.category || '')} · ${fmtDate(p.date)} · ${p.minutes} min</span>
                     <h2>${esc(p.title)}</h2>
                     <p>${esc(p.description)}</p>
+                    <span class="read-more">Ler ensaio</span>
                 </div>
             </a>
         </li>`
         )
         .join('\n        ');
     const body = `<main class="main-container home">
-        <h1 class="home-title">Artigos</h1>
+        <section class="hero">
+            <h1 class="visually-hidden">${SITE.name}: ${esc(SITE.tagline)}</h1>
+            <blockquote class="epigraph">
+                <p>&ldquo;No princípio era o Verbo, e o Verbo estava com Deus, e o Verbo era Deus.&rdquo;</p>
+                <cite>João 1:1</cite>
+            </blockquote>
+            <p class="hero-text">Ensaios sobre a cultura, a sociedade e a alma humana, à luz do Evangelho de Jesus Cristo.</p>
+            <div class="ornament" aria-hidden="true"></div>
+        </section>
+        <h2 class="home-title">Ensaios</h2>
         <ul class="post-list">
         ${cards}
         </ul>
